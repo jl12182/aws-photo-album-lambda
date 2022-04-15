@@ -20,7 +20,7 @@ phases:
   post_build:
     commands:
       - echo Updateing search-photos lambda function
-      - aws lambda update-function-code --function-name search-photos2 --zip-file fileb://search-photos/search-photos.zip
+      - aws lambda update-function-code --function-name "search-photos2" --zip-file fileb://search-photos/search-photos.zip --region "us-west-2"
       - rm search-photos/search-photos.zip
       - echo search-photos Done!!
       - echo Updateing Index-photos lambda function
