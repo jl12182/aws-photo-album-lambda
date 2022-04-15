@@ -12,18 +12,20 @@ phases:
       - zip -r ../search-photos.zip .
       - cd ..
       - zip -g search-photos.zip lambda_function.py
+      - mv search-photos.zip ../search-photos.zip
       - echo index-photos...
       - cd ../search-photos/packages
       - zip -r ../index-photos.zip .
       - cd ..
       - zip -g index-photos.zip lambda_function.py
+      - mv search-photos.zip ../search-photos.zip
   post_build:
     commands:
       - echo Updateing search-photos lambda function
-      - aws lambda update-function-code --function-name "search-photos2" --zip-file fileb://search-photos/search-photos.zip --region "us-west-2"
+      - aws lambda update-function-code --function-name "search-photos2" --zip-file fileb://search-photos.zip --region "us-west-2"
       - rm search-photos/search-photos.zip
       - echo search-photos Done!!
       - echo Updateing Index-photos lambda function
-      - aws lambda update-function-code --function-name photoIndex2 --zip-file fileb://index-photos/index-photos.zip
+      - aws lambda update-function-code --function-name photoIndex2 --zip-file fileb://index-photos.zip --region "us-west-2"
       - rm index-photos/index-photos.zip
       - echo index photos Done!!
