@@ -13,13 +13,11 @@ phases:
       - cd ..
       - zip -g search-photos.zip lambda_function.py
       - ls
-      - mv search-photos.zip ..
       - echo index-photos...
       - cd ../search-photos/packages
       - zip -r ../index-photos.zip .
       - cd ..
       - zip -g index-photos.zip lambda_function.py
-      - mv search-photos.zip ..
     commands:
       - echo Updateing search-photos lambda function
       - aws lambda update-function-code --function-name "search-photos2" --zip-file fileb://search-photos.zip --region "us-west-2"
