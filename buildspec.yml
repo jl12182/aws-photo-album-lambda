@@ -3,32 +3,27 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      python: 3.7
-    commands:
-      - echo install dependcies....
-      - pip install -r requirements.txt -t lib
+      python: 3.9
   build:
     commands:
       - echo search-photos part...
       - echo Zipping...
-      - cd lib
-      - zip -r9 ../search-photos.zip .
+      - cd index-photos/packages
+      - zip -r ../search-photos.zip .
       - cd ..
-      - cp search-photos/lambda_function.py lambda_function.py
       - zip -g search-photos.zip lambda_function.py
-      - rm lambda_function.py
-      - echo Index-photos...
-      - cp index-photos/lambda_function.py lambda_function.py
-      - zip index-photos.zip lambda_function.py
-      - rm lambda_function.py
+      - echo index-photos...
+      - cd ../search-photos/packages
+      - zip -r ../index-photos.zip .
+      - cd ..
+      - zip -g index-photos.zip lambda_function.py
   post_build:
     commands:
       - echo Updateing search-photos lambda function
-      - aws lambda update-function-code --function-name search-photos --zip-file fileb://search-photos.zip
-      - rm search-photos.zip
+      - aws lambda update-function-code --function-name search-photos2 --zip-file fileb://search-photos/search-photos.zip
+      - rm search-photos/search-photos.zip
       - echo search-photos Done!!
       - echo Updateing Index-photos lambda function
-      - aws lambda update-function-code --function-name index-photos --zip-file fileb://index-photos.zip
-      - rm index-photos.zip
+      - aws lambda update-function-code --function-name photoIndex2 --zip-file fileb://index-photos/index-photos.zip
+      - rm index-photos/index-photos.zip
       - echo index photos Done!!
-      
