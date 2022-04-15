@@ -12,6 +12,7 @@ phases:
       - zip -r ../search-photos.zip .
       - cd ..
       - zip -g search-photos.zip lambda_function.py
+      - ls
       - mv search-photos.zip ..
       - echo index-photos...
       - cd ../search-photos/packages
